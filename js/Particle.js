@@ -243,7 +243,7 @@ var Particle = {
                                 }
                             }, 1500, 10, 'linear', function () {
                                 // done
-                                $("#Light").hide(500);
+                                $("#Light").hide(100);
                                 $(".allinmdCaosAppSee").delay(1000).html("回看全景").show();
                             }
                         );

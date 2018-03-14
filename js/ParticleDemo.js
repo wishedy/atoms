@@ -132,6 +132,7 @@ $(document).ready(function(){
                         }
                         break;
                     case 2:
+                        debugger;
                         t.Particles[0].rect.hide();
                         for(var numB = 0;numB<t.Particles.length;numB++){
                             var itemB = t.Particles[numB];
@@ -218,7 +219,7 @@ $(document).ready(function(){
         getLogoDis:function(){
             var t = this;
             var image = new Image(); //定义一个图片对象
-            image.src = 'image/1b2f38b4ecfe4c69aa7f97769b6c76f1.PNG';
+            image.src = '../image/1b2f38b4ecfe4c69aa7f97769b6c76f1.PNG';
             image.onload = function () {
                 var nowCanvas = document.createElement("canvas");
                 var ctx = nowCanvas.getContext("2d");
@@ -286,19 +287,19 @@ $(document).ready(function(){
                 h: h*radius*.2,
                 rect:new zrender.Image(
                     {
-                        'style': { x: x, y: y,width:0,height:0, image:"image/home.jpg"}
+                        'style': { x: x, y: y,width:0,height:0, image:"../image/home.jpg"}
                     }
                     )
             }
         },
         userInfo:{
-          imgSrc:'image/junyong02.jpg',
+          imgSrc:'../image/junyong02.jpg',
             disx:0,
             disy:0,
             index:0
         },
         centerImg:{
-            imgSrc: "image/junyong02.jpg",
+            imgSrc: "../image/junyong02.jpg",
             w: 32,
             h: 23,
             x:0,

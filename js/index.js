@@ -3,20 +3,24 @@ $(document).ready(function(){
         init:function(){
             var t = this;
             t.startWord();
-            Particle.init({
-                beginFun:function(){
-                    $(".allinmdCaosAppWel").hide();
-                    $(".allinmdCaosAppPanel").show();
-                    clearInterval(t.wordTimer);
-                },
-                lightEle:'Light',
-                particlePanel:'Particle'
-            });
+            setTimeout(function(){
+                Particle.init({
+                    beginFun:function(){
+                        $(".allinmdCaosAppWel").hide();
+                        $(".allinmdCaosAppPanel").show();
+                        clearInterval(t.wordTimer);
+                    },
+                    lightEle:'Light',
+                    particlePanel:'Particle'
+                });
+            },8000);
+
         },
         startWord:function(){
             var t = this;
             var num = 0;
             var wordStr = '';
+            console.log("进来了")
             t.wordTimer = setInterval(function(){
                 wordStr+=t.word[num++];
                 if(num>t.word.length){

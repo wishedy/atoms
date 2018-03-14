@@ -24,17 +24,23 @@
         <section class="allinmdCaosAppPanel" style="display: none;">
             <section class="allinmdCaosAppDraw">
                 <section class="allinmdCaosAppParticle" id="Particle"></section>
-                <section class="allinmdCaosAppLight" id="Light"></section>
+                <section class="allinmdCaosAppLight" id="Light">
+                    <canvas id="CaosAppDrawLight" width="550" height="300"></canvas>
+                </section>
             </section>
-            <section class="allinmdCaosAppDes">
-                <p>您是第366868位参与者</p>
-                <div class="allinmdCaosAppSee">查看我的位置</div>
-            </section>
+            <!--<section class="allinmdCaosAppLogo">
+                &lt;!&ndash;<img src="image/logo.png" alt="">&ndash;&gt;
+                <canvas width="550" height="570" style="position: absolute;top: 0;left: 0;" id="logo"></canvas>
+            </section>-->
+        </section>
+        <section class="allinmdCaosAppDes">
+            <p class="allinmdCaosAppNum">您是第366868位参与者</p>
+            <div class="allinmdCaosAppSee">查看我的位置</div>
         </section>
     </section>
 </section>
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-<script src="bower_components/zrender/dist/zrender.js"></script>
+<script src="js/zrender.js"></script>
 <script src="js/Particle.js"></script>
 <script src="js/index.js"></script>
 </body>

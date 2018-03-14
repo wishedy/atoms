@@ -20,41 +20,43 @@ html{
     top:0;
     left: 0;
     .allinmdCaosAppPanel{
-      width: rem(550px);
-      height: rem(300px);
-      margin: rem(300px) auto rem(100px) auto;
-      border: 1px solid #fff;
+      width: 100%;
+      height: rem(970px);
+      margin: rem(120px) auto rem(100px) auto;
+      position: relative;
       .allinmdCaosAppDraw{
         width: rem(550px);
         height: rem(300px);
         position: relative;
-        top:0;
-        left: 0;
-        .allinmdCaosAppParticle,.allinmdCaosAppLight{
+        top:50%;
+        left: 50%;
+        margin-left: rem(-275px);
+        margin-top: rem(-150px);
+        .allinmdCaosAppParticle{
           width: rem(550px);
           height: rem(300px);
           position: absolute;
           top:0;
           left: 0;
           z-index: 1;
-        }
-        .allinmdCaosAppLight{
-          z-index: 2;
+          .allinmdCaosAppLight{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top:0;
+            left: 0;
+            z-index: 2;
+          }
         }
       }
-    }
-    .allinmdCaosAppDes{
-      color: #fff;
-      font-size: rem(32px);
-      width: 100%;
-      text-align: center;
-      .allinmdCaosAppSee{
-        margin: 0 auto;
-        padding:rem(20px) rem(30px);
-        width: auto;
-        display: inline-block;
-        background:#E56244 ;
-        border-radius: rem(25px);
+      .allinmdCaosAppLogo{
+        height: 100%;
+        position: absolute;
+        top:0;
+        left: 50%;
+        margin-left: rem(-275px);
+        width: rem(550px);
+        border: 1px solid #ff0000;
       }
     }
     .allinmdCaosAppWel{
@@ -64,6 +66,24 @@ html{
       color: #fff;
       line-height:rem(70px);
       text-align: center;
+    }
+    .allinmdCaosAppDes{
+      color: #fff;
+      font-size: rem(32px);
+      width: 100%;
+      text-align: center;
+      position: absolute;
+      bottom:rem(100px);
+      left: 0;
+      display: none;
+      .allinmdCaosAppSee{
+        margin: 0 auto;
+        padding:rem(20px) rem(30px);
+        width: rem(300px);
+        display: inline-block;
+        background: #DE5145;
+        border-radius: rem(38px);
+      }
     }
   }
 }

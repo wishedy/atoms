@@ -17,37 +17,40 @@ html {
     top: 0;
     left: 0; }
     .allinmdCaosApp .allinmdCaosAppInner .allinmdCaosAppPanel {
-      width: 17.1875rem;
-      height: 9.375rem;
-      margin: 9.375rem auto 3.125rem auto;
-      border: 1px solid #fff; }
+      width: 100%;
+      height: 30.3125rem;
+      margin: 3.75rem auto 3.125rem auto;
+      position: relative; }
       .allinmdCaosApp .allinmdCaosAppInner .allinmdCaosAppPanel .allinmdCaosAppDraw {
         width: 17.1875rem;
         height: 9.375rem;
         position: relative;
-        top: 0;
-        left: 0; }
-        .allinmdCaosApp .allinmdCaosAppInner .allinmdCaosAppPanel .allinmdCaosAppDraw .allinmdCaosAppParticle, .allinmdCaosApp .allinmdCaosAppInner .allinmdCaosAppPanel .allinmdCaosAppDraw .allinmdCaosAppLight {
+        top: 50%;
+        left: 50%;
+        margin-left: -8.59375rem;
+        margin-top: -4.6875rem; }
+        .allinmdCaosApp .allinmdCaosAppInner .allinmdCaosAppPanel .allinmdCaosAppDraw .allinmdCaosAppParticle {
           width: 17.1875rem;
           height: 9.375rem;
           position: absolute;
           top: 0;
           left: 0;
           z-index: 1; }
-        .allinmdCaosApp .allinmdCaosAppInner .allinmdCaosAppPanel .allinmdCaosAppDraw .allinmdCaosAppLight {
-          z-index: 2; }
-    .allinmdCaosApp .allinmdCaosAppInner .allinmdCaosAppDes {
-      color: #fff;
-      font-size: 1rem;
-      width: 100%;
-      text-align: center; }
-      .allinmdCaosApp .allinmdCaosAppInner .allinmdCaosAppDes .allinmdCaosAppSee {
-        margin: 0 auto;
-        padding: 0.625rem 0.9375rem;
-        width: auto;
-        display: inline-block;
-        background: #E56244;
-        border-radius: 0.78125rem; }
+          .allinmdCaosApp .allinmdCaosAppInner .allinmdCaosAppPanel .allinmdCaosAppDraw .allinmdCaosAppParticle .allinmdCaosAppLight {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2; }
+      .allinmdCaosApp .allinmdCaosAppInner .allinmdCaosAppPanel .allinmdCaosAppLogo {
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        margin-left: -8.59375rem;
+        width: 17.1875rem;
+        border: 1px solid #ff0000; }
     .allinmdCaosApp .allinmdCaosAppInner .allinmdCaosAppWel {
       width: 17.1875rem;
       margin: 14.0625rem auto;
@@ -55,6 +58,22 @@ html {
       color: #fff;
       line-height: 2.1875rem;
       text-align: center; }
+    .allinmdCaosApp .allinmdCaosAppInner .allinmdCaosAppDes {
+      color: #fff;
+      font-size: 1rem;
+      width: 100%;
+      text-align: center;
+      position: absolute;
+      bottom: 3.125rem;
+      left: 0;
+      display: none; }
+      .allinmdCaosApp .allinmdCaosAppInner .allinmdCaosAppDes .allinmdCaosAppSee {
+        margin: 0 auto;
+        padding: 0.625rem 0.9375rem;
+        width: 9.375rem;
+        display: inline-block;
+        background: #DE5145;
+        border-radius: 1.1875rem; }
 
 .panelWrapper {
   position: relative;

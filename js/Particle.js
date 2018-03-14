@@ -8,6 +8,7 @@ var Particle = {
     initPanel: function () {
         var t = this;
         t.zr = zrender.init(document.getElementById(t.opt.particlePanel));
+        console.log(t.panelW, t.panelH);
         t.panel = new zrender.Rect({
             shape: {
                 width: t.panelW,
@@ -31,8 +32,8 @@ var Particle = {
             x: x,
             y: y,
             z: z,
-            locx: parseInt(Math.random() * t.panelW),
-            locy: parseInt(Math.random() * t.panelW),
+            locx: parseInt(Math.random() * $(window).width()),
+            locy: parseInt(Math.random() * 295),
             locz: Math.random() * t.focallength * 2 - t.focallength,
             w: w * radius*.3,
             h: h * radius*.3,
@@ -61,9 +62,8 @@ var Particle = {
     },
     startLight: function () {
         var t = this;
-        $("#Particle").append("<section class=\"allinmdCaosAppLight\" id=\"Light\">" +
-            "                    <canvas id=\"CaosAppDrawLight\" width=\"550\" height=\"300\"></canvas>" +
-            "                </section>");
+        $(".caosAppDrawLight").append(
+            " <canvas id=\"CaosAppDrawLight\" width=\"550\" height=\"300\"></canvas>");
         var canvas = document.getElementById('CaosAppDrawLight');
         var context = canvas.getContext("2d");
         canvas.width = t.logoImg.w;
@@ -156,6 +156,15 @@ var Particle = {
                         }
                         break;
                     case 1:
+                        $(".caosAppDrawParticle").addClass("active");
+
+                        t.zr.resize({
+                            width: $(window).width(),
+                            height: 295
+                        });
+                        //t.centerImg.x =$(window).width()-t.atomW/2;
+                        /*t.centerImg.y =295-t.atomH/2;
+                        console.log(t.centerImg.x,t.centerImg.y)*/
                         for (var numA = 0; numA < t.Particles.length; numA++) {
                             var itemA = t.Particles[numA];
                                 itemA.rect.animateTo(
@@ -177,11 +186,6 @@ var Particle = {
                         }
                         break;
                     case 2:
-                        t.zr.resize({
-                            width: t.logoImg.w,
-                            height: t.logoImg.h
-                        });
-                        $(".allinmdCaosAppParticle").height(t.logoImg.h).css({top: -300});
                         for (var numB = 0; numB < t.Particles.length; numB++) {
                             var itemB = t.Particles[numB];
                             if (itemB.disx && itemB.disy) {
@@ -224,12 +228,13 @@ var Particle = {
     },
     startScale: function () {
         var t = this;
-        $(".allinmdCaosAppDes").show();
-        $(".allinmdCaosAppSee").off("touchstart").on("touchstart", function () {
-            $(".allinmdCaosAppSee").hide();
-            $(".allinmdCaosAppNum").hide();
+        $(".caosAppDrawWord").show();
+        $(".caosAppDrawYourPos").off("touchstart").on("touchstart", function () {
+            $(".caosAppDrawYourPos").hide();
+            $(".caosAppDrawYourNum").hide();
             if (t.scaleOnOff) {
                 t.scaleOnOff = false;
+                $("#CaosAppDrawLight").hide(100);
                 for (var numD = 0; numD < t.Particles.length; numD++) {
                     var itemD = t.Particles[numD];
                     if (itemD.disx && itemD.disy) {
@@ -238,13 +243,12 @@ var Particle = {
                                 style: {
                                     width: t.atomW * t.scaleNum,
                                     height: t.atomH * t.scaleNum,
-                                    x: t.scaleNum * (itemD.disx - t.Particles[t.userInfo.index].disx) + t.centerImg.x,
+                                    x: t.scaleNum * (itemD.disx - t.Particles[t.userInfo.index].disx) + t.centerImg.x-10,
                                     y: t.scaleNum * (itemD.disy - t.Particles[t.userInfo.index].disy + t.centerImg.y)
                                 }
                             }, 1500, 10, 'linear', function () {
                                 // done
-                                $("#Light").hide(100);
-                                $(".allinmdCaosAppSee").delay(1000).html("回看全景").show();
+                                $(".caosAppDrawYourPos").delay(1000).html("回看全景").show();
                             }
                         );
                     } else {
@@ -265,9 +269,9 @@ var Particle = {
                             }
                         }, 1500, 10, 'linear', function () {
                             // done
-                            $("#Light").show(500);
-                            $(".allinmdCaosAppNum").show();
-                            $(".allinmdCaosAppSee").delay(1000).html("查看我的头像位置").show();
+                            $("#CaosAppDrawLight").show(500);
+                            $(".caosAppDrawYourNum").show();
+                            $(".caosAppDrawYourPos").delay(1000).html("查看我的头像位置").show();
                         }
                     );
                 }
@@ -351,10 +355,10 @@ var Particle = {
     },
     getCenterDis: function () {
         var t = this;
-        t.centerImg.x = t.panelW / 2 - t.centerImg.w / 2;
-        t.centerImg.y = t.panelH / 2 - t.centerImg.h / 2;
+        t.centerImg.x = 280 / 2 - t.centerImg.w / 2;
+        t.centerImg.y = 160 / 2 - t.centerImg.h / 2;
         t.centerImg.z = 10;//z的数值越大，起点越小
-        var scale = 5;
+        var scale = 2;
         var atom = {
             x: t.centerImg.x - scale * t.centerImg.w / 2,
             y: t.centerImg.y - scale * t.centerImg.h / 2,
@@ -401,8 +405,8 @@ var Particle = {
     },
     logoImg: {
         imgSrc: 'image/logo.png',
-        w: 550,
-        h: 570
+        w: 320,
+        h: 295
     },
     userInfo: {
         imgSrc: 'image/349724189257526722.png',
@@ -420,11 +424,11 @@ var Particle = {
     centerRect: null,
     focallength: 250,
     Particles: [],
-    atomW: 8,
-    atomH: 8,
-    nowSum: 800,
-    panelW: 550,
-    panelH: 300,
+    atomW: 4,
+    atomH: 4,
+    nowSum: 1200,
+    panelW: 280,
+    panelH: 160,
     opt: null,
     zr: null,
     Play: true

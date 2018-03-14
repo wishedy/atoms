@@ -6,8 +6,8 @@ $(document).ready(function(){
             setTimeout(function(){
                 Particle.init({
                     beginFun:function(){
-                        $(".allinmdCaosAppWel").hide();
-                        $(".allinmdCaosAppPanel").show();
+                        $(".caosAppWelcome").hide();
+                        $(".caosAppDraw").show();
                         clearInterval(t.wordTimer);
                     },
                     lightEle:'Light',
@@ -20,7 +20,6 @@ $(document).ready(function(){
             var t = this;
             var num = 0;
             var wordStr = '';
-            console.log("进来了")
             t.wordTimer = setInterval(function(){
                 wordStr+=t.word[num++];
                 if(num>t.word.length){
@@ -33,11 +32,11 @@ $(document).ready(function(){
                             t.ellipsis='';
                             num=0;
                         }else{
-                            $(".allinmdCaosAppEllipsis").html(t.ellipsis);
+                            $(".caosAppWelDot").html(t.ellipsis);
                         }
                     },300);
                 }else{
-                    $(".allinmdCaosAppWord").html(wordStr);
+                    $(".caosAppWelDes").html(wordStr);
                 }
             },300);
         },

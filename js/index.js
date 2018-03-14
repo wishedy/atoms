@@ -13,7 +13,7 @@ $(document).ready(function(){
                     lightEle:'Light',
                     particlePanel:'Particle'
                 });
-            },8000);
+            },1000);
 
         },
         startWord:function(){

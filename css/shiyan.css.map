@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,cAAc;EACZ,MAAM,EAAE,UAAU;EAClB,KAAK,EAAE,KAAK;EACZ,MAAM,EAAE,KAAK;EACb,UAAU,EAAE,IAAI",
+"sources": ["../scss/shiyan.scss"],
+"names": [],
+"file": "shiyan.css"
+}

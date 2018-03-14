@@ -35,30 +35,17 @@ html{
       width: 100%;
       margin: rem(80px) auto;
       height: rem(295px);
-      //background: #fff;
       position: relative;
+      //border: 1px solid #fff;
+
       .caosAppDrawParticle{
-        width: rem(280px);
-        height: rem(160px);
-        //background: #ff0000;
         position: absolute;
-        left: 50%;
-        margin-left: rem(-140px);
-        margin-top: rem(-80px);
-        top:50%;
-        &.active{
-            width: 100%;
-          height: 100%;
-          margin: 0 auto;
-          left: 0;
-          top:0;
-          div{
-            margin: 0 auto !important;
-            canvas{
-              margin: 0 auto !important;
-            }
-          }
-        }
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom:0;
+        width: 100%;
+        height: 100%;
       }
       .caosAppDrawLight{
         position: absolute;

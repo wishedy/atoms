@@ -17,7 +17,7 @@ $(document).ready(function(){
                     lightEle:'Light',
                     particlePanel:'Particle'
                 });
-            },1000);
+            },8000);
 
         },
         startWord:function(){

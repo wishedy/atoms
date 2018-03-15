@@ -64,15 +64,14 @@ var Particle = {
     },
     beginCenter: function () {
         var t = this;
-        var scale = 2;
         // console.log(t.centerImg)
         //debugger;
         var atom = {
-            x: t.centerImg.x - scale * t.centerImg.w / 2,
-            y: t.centerImg.y - scale * t.centerImg.h / 2,
+            x: t.centerImg.x - t.centerImg.scale * t.centerImg.w / 2,
+            y: t.centerImg.y - t.centerImg.scale * t.centerImg.h / 2,
             z: t.centerImg.z,
-            w: t.centerImg.w * scale,
-            h: t.centerImg.h * scale,
+            w: t.centerImg.w * t.centerImg.scale,
+            h: t.centerImg.h * t.centerImg.scale,
             rect: new zrender.Image(
                 {
                     'style': {
@@ -474,6 +473,7 @@ var Particle = {
         z: 10,
         w: 32,
         h: 23,
+        scale:4,
         imgSrc: 'image/Cgp3O1axmBmAMh2nAAAyeN0wTns199.png'
     },
     nowSum:18000,//取决于后台目前有多少人
@@ -500,4 +500,4 @@ var Particle = {
     lastSequence: 2,
     lightOnOff: true,
     sequence: 0
-}
+};

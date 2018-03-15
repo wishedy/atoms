@@ -274,7 +274,7 @@ var Particle = {
     saveImg:function(){
         var t = this;
         $(".caosAppDrawPreview").off("touchstart").on("touchstart",function(){
-            
+            wx.miniProgram.navigateTo({url: '/pages/preview/preview'})
         });
     },
     startScale: function () {

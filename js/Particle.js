@@ -4,6 +4,7 @@ var Particle = {
         t.opt = opt;
         t.opt.beginFun && t.opt.beginFun();
         t.saveImage();
+        console.log( $("#"+t.opt.particlePanel).height())
         t.logoImg.h = t.panelH = $("#"+t.opt.particlePanel).height();
         //首先初始化画板
         t.initPanel().createAtoms();
@@ -15,6 +16,8 @@ var Particle = {
     initPanel:function(){
         var t = this;
         t.zr = zrender.init(document.getElementById(t.opt.particlePanel)); //获取承载canvas的元素
+        console.log({width: t.panelW,
+            height: t.panelH})
         t.panel = new zrender.Rect({
             shape: {
                 width: t.panelW,
@@ -188,13 +191,6 @@ var Particle = {
                         }
                         break;
                     case 1:
-                        t.zr.resize({
-                            width: $(window).width(),
-                            height: 295
-                        });
-                        //t.centerImg.x =$(window).width()-t.atomW/2;
-                        /*t.centerImg.y =295-t.atomH/2;
-                        console.log(t.centerImg.x,t.centerImg.y)*/
                         for (var numA = 0; numA < t.Particles.length; numA++) {
                             var itemA = t.Particles[numA];
                             itemA.rect.animateTo(
@@ -295,9 +291,9 @@ var Particle = {
                                     width: t.atomW * t.scaleNum,
                                     height: t.atomH * t.scaleNum,
                                     x: t.scaleNum * (itemD.disx - t.Particles[t.userInfo.index].disx) + t.panelCenter.x,
-                                    y: t.scaleNum * (itemD.disy - t.Particles[t.userInfo.index].disy + t.panelCenter.y)
+                                    y: t.scaleNum * (itemD.disy - t.Particles[t.userInfo.index].disy) + t.panelCenter.y
                                 }
-                            }, 1500, 10, 'linear', function () {
+                            }, 1000, 10, 'linear', function () {
                                 // done
                                 $(".caosAppDrawYourPos").delay(1000).html("回看全景").show();
                             }
@@ -319,7 +315,7 @@ var Particle = {
                                 height: t.atomH,
                                 x: itemE.disx, y: itemE.disy
                             }
-                        }, 1500, 10, 'linear', function () {
+                        }, 1000, 10, 'linear', function () {
                             // done
                             if(callBackNum===0){
                                 callBackNum++;
@@ -493,7 +489,7 @@ var Particle = {
     panelH:295,//画布的原始高度
     opt:null,//初始化的时候传入的参数存储的地方
     zr: null,
-    scaleNum: 1.5,
+    scaleNum: 10,
     Play: true,
     section: true,
     scaleOnOff:true,

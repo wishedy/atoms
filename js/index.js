@@ -2,6 +2,7 @@ $(document).ready(function(){
     var caosApp = {
         init:function(){
             var t = this;
+            console.log('执行');
             t.startWord();
             setTimeout(function(){
                 Particle.init({
@@ -10,10 +11,13 @@ $(document).ready(function(){
                         $(".caosAppDraw").show();
                         clearInterval(t.wordTimer);
                     },
+                    endFun:function(){
+                        $(".caosAppDrawMask").fadeIn(100);
+                    },
                     lightEle:'Light',
                     particlePanel:'Particle'
                 });
-            },8000);
+            },1000);
 
         },
         startWord:function(){

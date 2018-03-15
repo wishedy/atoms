@@ -17,7 +17,7 @@ html{
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
+    z-index: 2;
     color: #fff;
     font-size: rem(16px);
     line-height: rem(36px);
@@ -31,34 +31,22 @@ html{
     height: 100%;
     bottom:0;
     right: 0;
+    z-index: 4;
     .caosAppDrawPanel{
       width: 100%;
       margin: rem(80px) auto;
       height: rem(295px);
-      //background: #fff;
       position: relative;
+      //border: 1px solid #fff;
+      z-index: 5;
       .caosAppDrawParticle{
-        width: rem(280px);
-        height: rem(160px);
-        //background: #ff0000;
         position: absolute;
-        left: 50%;
-        margin-left: rem(-140px);
-        margin-top: rem(-80px);
-        top:50%;
-        &.active{
-            width: 100%;
-          height: 100%;
-          margin: 0 auto;
-          left: 0;
-          top:0;
-          div{
-            margin: 0 auto !important;
-            canvas{
-              margin: 0 auto !important;
-            }
-          }
-        }
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom:0;
+        width: 100%;
+        height: 100%;
       }
       .caosAppDrawLight{
         position: absolute;
@@ -84,9 +72,51 @@ html{
         padding:0 rem(30px);
         width: rem(140px);
         display: inline-block;
-        background: #DE5145;
+        background: #DE5145;/*5F6B91*/
         border-radius: rem(38px);
       }
+      .caosAppDrawPreview{
+        color: #807d99;
+      }
+    }
+  }
+  .caosAppDrawMask{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    bottom:0;
+    right: 0;
+    z-index: 1;
+    opacity:0.1;
+    display: none;
+    background: #1C2B3E url("../image/1495509310212147.jpeg") no-repeat center 50%;
+    background-size: contain;
+  }
+  .caosAppPreview{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    bottom:0;
+    right: 0;
+    z-index: 6;
+    img{
+      width: 100%;
+      height: 100%;
+    }
+    .caosAppDrawSave{
+      position: absolute;
+      bottom:0;
+      height: rem(36px);
+      line-height: rem(36px);
+      font-size: rem(16px);
+      background: #333;
+      color: #fff;
+      width: 100%;
+      text-align: center;
     }
   }
 }

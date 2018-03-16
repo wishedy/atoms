@@ -179,10 +179,11 @@ var Particle = {
             }
             t.userInfo.disx = t.Particles[t.userInfo.index].disx;
             t.userInfo.disy = t.Particles[t.userInfo.index].disy;
-            var scale = 40;
+            var scale = 140;
             t.Particles[t.userInfo.index].locx = t.Particles[t.userInfo.index].disx - scale * t.atomW / 2;
             t.Particles[t.userInfo.index].locy = t.Particles[t.userInfo.index].disy - scale * t.atomH / 2;
             t.Particles[t.userInfo.index].w = t.atomW*scale;
+            t.Particles[t.userInfo.index].h = t.atomH* scale;
             t.Particles[t.userInfo.index].h = t.atomH* scale;
             t.Particles[t.userInfo.index].rect.style.image = t.userInfo.imgSrc;
             t.startAnimate();
@@ -304,7 +305,7 @@ var Particle = {
         }
     },
     userInfo: {
-        imgSrc: 'image/junyong02.jpg',
+        imgSrc: 'image/545177285875040887.png',
         disx: 0,
         disy: 0,
         index: 0
@@ -540,7 +541,7 @@ var Particle = {
     maskPanel:null,
     drawPanel:null,
     wThPer:1.085,
-    nowSum:5000,//取决于后台目前有多少人
+    nowSum:9000,//取决于后台目前有多少人
     Particles:[],//用于存放所有的运动粒子
     scaleRatio:.3,//粒子扩散时候的放大比例
     focallength:250,
@@ -559,7 +560,7 @@ var Particle = {
     zr: null,
     //largeUserImage:null,
     //temUser:true,
-    scaleNum: 20,
+    scaleNum: 12,
     userScaleNum:4,
     Play: true,
     section: true,

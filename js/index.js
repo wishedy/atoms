@@ -12,10 +12,12 @@ $(document).ready(function(){
                         clearInterval(t.wordTimer);
                     },
                     endFun:function(){
-                        $(".caosAppDrawMask").fadeIn(100);
+                        $(".caosAppBg").fadeIn(100);
                     },
                     lightEle:'Light',
-                    particlePanel:'Particle'
+                    maskParticle:"ParticleMask",
+                    particlePanel:'Particle',
+                    largeMask:"largeMask"
                 });
             },8000);
 
@@ -36,11 +38,11 @@ $(document).ready(function(){
                             t.ellipsis='';
                             num=0;
                         }else{
-                            $(".caosAppWelDot").html(t.ellipsis);
+                            $(".caosAppOnLoad").html(t.ellipsis);
                         }
                     },300);
                 }else{
-                    $(".caosAppWelDes").html(wordStr);
+                    $(".caosAppOnOpen").html(wordStr);
                 }
             },300);
         },

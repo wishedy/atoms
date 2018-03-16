@@ -4,9 +4,15 @@ var Particle = {
         t.opt = opt;
         t.opt.beginFun && t.opt.beginFun();
         t.saveImage();
-        console.log( $("#"+t.opt.particlePanel).height())
-        t.logoImg.h = t.panelH = $("#"+t.opt.particlePanel).height();
+        t.logoImg.h = t.panelH = $(window).width()*t.wThPer;
+        t.drawPanel = $("#"+t.opt.particlePanel);
+        t.maskPanel = $("#"+t.opt.maskParticle);
+        t.drawPanel.height(t.panelH);
+        t.maskPanel.height(t.panelH);
+        t.drawPanel.parent().height(t.panelH);
+        t.drawPanel.next().height(t.panelH);
         //首先初始化画板
+        //debugger;
         t.initPanel().createAtoms();
     },
     saveImage:function(){
@@ -16,8 +22,7 @@ var Particle = {
     initPanel:function(){
         var t = this;
         t.zr = zrender.init(document.getElementById(t.opt.particlePanel)); //获取承载canvas的元素
-        console.log({width: t.panelW,
-            height: t.panelH})
+        t.maskZr = zrender.init(document.getElementById(t.opt.maskParticle)); //获取承载canvas的元素
         t.panel = new zrender.Rect({
             shape: {
                 width: t.panelW,
@@ -28,7 +33,27 @@ var Particle = {
                 stroke: 'none'
             }
         });
+        t.zr.add(t.panel);
         return t;
+    },
+    getUserAtom:function(x,y,z,w,h){
+        var t = this;
+        var radius = 1300;
+        return {
+            x: x,
+            y: y,
+            z: z,
+            locx: parseInt($(window).width())-w * radius*t.scaleRatio,
+            locy: parseInt($("#"+t.opt.particlePanel).height())-h * radius*t.scaleRatio,
+            locz: t.focallength * 2,
+            w: w * radius*t.scaleRatio,
+            h: h * radius*t.scaleRatio,
+            rect: new zrender.Image(
+                {
+                    'style': {x: x, y: y, width: 0, height: 0, image:''}
+                }
+            )
+        }
     },
     getAtom:function(x,y,z,w,h){
       var t = this;
@@ -36,6 +61,8 @@ var Particle = {
         if(radius>300){
             radius = 300;
         }
+        var imgSrcArr = ['image/01.jpeg', 'image/02.jpg', 'image/03.jpg', 'image/04.jpeg', 'image/05.jpg', 'image/06.jpg', 'image/07.jpg', 'image/08.jpg', 'image/09.jpg', 'image/10.jpg', 'image/11.jpg', 'image/12.jpg', 'image/13.jpg', 'image/14.jpeg', 'image/15.jpg', 'image/16.jpg', 'image/17.jpg', 'image/18.jpg', 'image/19.jpg', 'image/20.jpg', 'image/21.jpg', 'image/22.jpg'];
+        var nowSrc = imgSrcArr[t.randomNum(0,imgSrcArr.length-1)];
         return {
             x: x,
             y: y,
@@ -47,7 +74,7 @@ var Particle = {
             h: h * radius*t.scaleRatio,
             rect: new zrender.Image(
                 {
-                    'style': {x: x, y: y, width: 0, height: 0, image:'image/home.jpg'}
+                    'style': {x: x, y: y, width: 0, height: 0, image:nowSrc}
                 }
             )
         }
@@ -67,7 +94,6 @@ var Particle = {
     },
     beginCenter: function () {
         var t = this;
-        // console.log(t.centerImg)
         //debugger;
         var atom = {
             x: t.centerImg.x - t.centerImg.scale * t.centerImg.w / 2,
@@ -103,7 +129,7 @@ var Particle = {
         );
         setTimeout(function () {
             t.calLog();
-        }, 1500);
+        }, 1000);
 
     },
     calLog: function () {
@@ -165,7 +191,6 @@ var Particle = {
     startAnimate: function () {
         var t = this;
         var sumTime = 0;
-        // console.log(t.Play)
         if (t.Play) {
             if (t.section) {
                 switch (t.sequence) {
@@ -189,29 +214,49 @@ var Particle = {
 
                             });
                         }
+                        t.maskZr.add(t.Particles[t.userInfo.index].rect);
                         break;
                     case 1:
-                        for (var numA = 0; numA < t.Particles.length; numA++) {
-                            var itemA = t.Particles[numA];
-                            itemA.rect.animateTo(
-                                {
-                                    style: {
-                                        width: itemA.w, height: itemA.h,
-                                        x: itemA.locx, y: itemA.locy
-                                    }
-                                }, 3000, 10, 'linear', function () {
-                                    // done
-                                    sumTime++;
-                                    if (sumTime === t.Particles.length) {
-                                        sumTime = 0;
-                                        t.section = false;
-                                        t.startAnimate();
-                                    }
+                        t.Particles[t.userInfo.index].rect.animateTo(
+                            {
+                                style: {
+                                    width: t.Particles[t.userInfo.index].w, height: t.Particles[t.userInfo.index].h,
+                                    x: t.Particles[t.userInfo.index].locx, y: t.Particles[t.userInfo.index].locy
                                 }
-                            );
-                        }
+                            }, 2000, 10, 'linear', function () {
+                                // done
+                                sumTime++;
+                                t.Particles[t.userInfo.index].rect.hide();
+                            }
+                        );
+                        setTimeout(function(){
+                            for (var numA = 0; numA < t.Particles.length; numA++) {
+                                var itemA = t.Particles[numA];
+                                if(numA!==t.userInfo.index){
+                                    itemA.rect.animateTo(
+                                        {
+                                            style: {
+                                                width: itemA.w, height: itemA.h,
+                                                x: itemA.locx, y: itemA.locy
+                                            }
+                                        }, 3000, 10, 'linear', function () {
+                                            // done
+                                            sumTime++;
+                                            if (sumTime === t.Particles.length) {
+                                                sumTime = 0;
+                                                t.section = false;
+                                                t.startAnimate();
+                                            }
+                                        }
+                                    );
+                                }
+
+                            }
+                        },500);
+
                         break;
                     case 2:
+                        t.Particles[t.userInfo.index].rect.show();
                         for (var numB = 0; numB < t.Particles.length; numB++) {
                             var itemB = t.Particles[numB];
                             if (itemB.disx && itemB.disy) {
@@ -229,9 +274,6 @@ var Particle = {
                                             t.sequence++;
                                             t.section = false;
                                             t.startAnimate();
-                                            t.startLight();
-                                            t.startScale();
-                                            t.saveImg();
                                         }
                                     }
                                 );
@@ -244,7 +286,6 @@ var Particle = {
                         break;
                 }
             } else {
-                // console.log(t.sequence, t.lastSequence)
                 if (t.sequence >t.lastSequence) {
                     t.Play = false;
                     t.startAnimate();
@@ -255,7 +296,9 @@ var Particle = {
                 }
             }
         }else{
-            // console.log("运动结束了")
+            t.startLight();
+            t.startScale();
+            t.saveImg();
             t.opt.endFun&&t.opt.endFun();
             return false;
         }
@@ -268,46 +311,63 @@ var Particle = {
     },
     saveImg:function(){
         var t = this;
-        $(".caosAppDrawPreview").off("touchstart").on("touchstart",function(){
+        $(".preview").off("touchstart").on("touchstart",function(){
             wx.miniProgram.navigateTo({url: '/pages/preview/preview'})
         });
     },
     startScale: function () {
         var t = this;
-        $(".caosAppDrawWord").show();
-        $(".caosAppDrawYourPos").off("touchstart").on("touchstart", function () {
-            $(".caosAppDrawYourPos").hide();
-            $(".caosAppDrawYourNum").hide();
-            // console.log('执行')
+        $(".caosAppDrawLarge").show();
+        $(".seeMySelf").off("touchstart").on("touchstart", function () {
+            $(".caosAppDrawLarge").hide();
             if (t.scaleOnOff) {
                 t.scaleOnOff = false;
                 $("#CaosAppDrawLight").hide(100);
                 for (var numD = 0; numD < t.Particles.length; numD++) {
                     var itemD = t.Particles[numD];
                     if (itemD.disx && itemD.disy) {
+                        if(numD===t.userInfo.index){
+                            setTimeout(function(){
+                                $('#'+t.opt.largeMask).fadeIn();
+                            },1500)
+                        }
+                        var scaleNum = 0;
+                        var shift = 0;
+                        if(numD===t.userInfo.index){
+                            scaleNum = t.userScaleNum*t.scaleNum;
+                            shift = .5;
+                        }else{
+                            scaleNum = t.scaleNum;
+                        }
                         itemD.rect.animateTo(
                             {
                                 style: {
-                                    width: t.atomW * t.scaleNum,
-                                    height: t.atomH * t.scaleNum,
-                                    x: t.scaleNum * (itemD.disx - t.Particles[t.userInfo.index].disx) + t.panelCenter.x,
-                                    y: t.scaleNum * (itemD.disy - t.Particles[t.userInfo.index].disy) + t.panelCenter.y
+                                    width: t.atomW *scaleNum,
+                                    height: t.atomH * scaleNum,
+                                    x: scaleNum * (itemD.disx - t.Particles[t.userInfo.index].disx) + t.panelCenter.x-t.atomW * scaleNum*shift,
+                                    y: scaleNum * (itemD.disy - t.Particles[t.userInfo.index].disy) + t.panelCenter.y-t.atomH * scaleNum*shift
                                 }
-                            }, 1000, 10, 'linear', function () {
+                            }, 2000, 10, 'linear', function () {
                                 // done
-                                $(".caosAppDrawYourPos").delay(1000).html("回看全景").show();
+                                $(".caosAppDrawLarge").show();
+                                $(".seeMySelf").delay(1000).html("回看全景").show();
                             }
                         );
                     } else {
                         itemD.rect.hide();
                     }
                 }
+                //t.Particles[t.userInfo.index].rect.hide();
+
 
             } else {
                 t.scaleOnOff = true;
                 var callBackNum = 0;
                 for (var numE = 0; numE < t.Particles.length; numE++) {
                     var itemE = t.Particles[numE];
+                    if(numE===t.userInfo.index){
+                        $('#'+t.opt.largeMask).fadeOut(1500);
+                    }
                     itemE.rect.animateTo(
                         {
                             style: {
@@ -320,8 +380,8 @@ var Particle = {
                             if(callBackNum===0){
                                 callBackNum++;
                                 $("#CaosAppDrawLight").show(500);
-                                $(".caosAppDrawYourNum").show();
-                                $(".caosAppDrawYourPos").html("查看我的头像位置").show();
+                                $(".caosAppDrawLarge").show();
+                                $(".seeMySelf").html("查看我的头像位置").show();
                             }
 
                         }
@@ -427,13 +487,20 @@ var Particle = {
         var topY = -t.atomH/2+disTopY;//小矩形y最上边的坐标值
         var bottomY = t.maxY-disBottomY;//小矩形y最下边的坐标值
         //以上的过程主要是为了推算出小矩形和整个画板的中心坐标值
+        var nowNum = 0;
         for (var si = 0; si < t.panelW; si += t.atomW) {
             for (var sj = 0; sj < t.panelH; sj += t.atomH) {
                 var nowX = (si - (t.atomW/2));
                 var nowY = (sj - (t.atomH / 2));
                 if((nowX>=rightX)&&(nowY>=topY)&&(nowX<=leftX)&&(nowY<=bottomY)){
-                    var atom = t.getAtom(si - t.atomW / 2, sj - t.atomH / 2, 10, t.atomW, t.atomH);
+                    var atom = null;
+                    if(nowNum===t.userInfo.index){
+                        atom = t.getUserAtom(si - t.atomW / 2, sj - t.atomH / 2, 10, t.atomW, t.atomH);
+                    }else{
+                        atom = t.getAtom(si - t.atomW / 2, sj - t.atomH / 2, 10, t.atomW, t.atomH);
+                    }
                     t.Particles.push(atom);
+                    nowNum++;
                 }
             }
         }
@@ -442,9 +509,6 @@ var Particle = {
 
         //debugger;
         t.centerImg.x = t.panelCenter.x = (t.maxX-t.atomW)/2;
-        // console.log(t.maxY,t.minY,t.maxX,t.minX);
-        // console.log(t.centerImg);
-        // console.log(t.panelCenter);
         t.Particles = t.Particles.sort(t.randomSort);
         if(t.Particles.length>t.nowSum){
             t.Particles = t.Particles.slice(0, t.nowSum);
@@ -472,12 +536,16 @@ var Particle = {
         scale:4,
         imgSrc: 'image/Cgp3O1axmBmAMh2nAAAyeN0wTns199.png'
     },
-    nowSum:18000,//取决于后台目前有多少人
+
+    maskPanel:null,
+    drawPanel:null,
+    wThPer:1.085,
+    nowSum:5000,//取决于后台目前有多少人
     Particles:[],//用于存放所有的运动粒子
     scaleRatio:.3,//粒子扩散时候的放大比例
     focallength:250,
-    atomW:5,
-    atomH:5,
+    atomW:2,
+    atomH:2,
     maxY:0,//记录画布最大的纵轴端点
     maxX:0,//记录画布最大的横轴端点
     minX:0,//记录画布最小的横轴端点
@@ -489,7 +557,10 @@ var Particle = {
     panelH:295,//画布的原始高度
     opt:null,//初始化的时候传入的参数存储的地方
     zr: null,
-    scaleNum: 10,
+    //largeUserImage:null,
+    //temUser:true,
+    scaleNum: 20,
+    userScaleNum:4,
     Play: true,
     section: true,
     scaleOnOff:true,

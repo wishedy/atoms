@@ -1,6 +1,9 @@
 @charset "UTF-8";
 html {
-  font-size: 32px; }
+  font-size: 32px;
+  overflow: hidden; }
+  html body {
+    overflow: hidden; }
 
 html {
   -ms-text-size-adjust: none;

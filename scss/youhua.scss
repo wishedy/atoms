@@ -1,5 +1,9 @@
 html{
   font-size: 32px;
+  overflow: hidden;
+  body{
+    overflow: hidden;
+  }
 }
 @import "nomallize";
 @include normalize(mobile);
